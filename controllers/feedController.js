@@ -4,15 +4,20 @@ const Report = require("../models/Report");
 
 const generateFeed = async (req, res) => {
     try {
-        const response = await axios.get(
-            `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.NEWS_API_KEY}`
-        );
+        const response = await axios.get(`https://gnews.io/api/v4/top-headlines`, {
+            params: {
+                country: "us",
+                lang: "en",
+                token: process.env.NEWS_API_KEY
+            }
+        });
+
         const feed = response.data.articles.map((article, index) => ({
             id: index + 1,
             title: article.title,
             description: article.description,
             url: article.url,
-            urlToImage: article.urlToImage,
+            urlToImage: article.image,
             content: article.content,
             publishedAt: article.publishedAt,
             source: article.source.name
