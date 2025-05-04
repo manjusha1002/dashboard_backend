@@ -14,7 +14,7 @@ connectDB();
 
 const app = express();
 app.use(cors({
-    origin: "https://dashboard-frontend-three-psi.vercel.app/",
+    origin: "*",
     credentials: true
 }));
 app.use(express.json());
